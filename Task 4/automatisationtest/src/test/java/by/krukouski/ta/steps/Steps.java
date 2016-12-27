@@ -5,9 +5,8 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
 import by.krukouski.ta.driver.DriverSingleton;
-import by.krukouski.ta.pages.CreateNewRepositoryPage;
 import by.krukouski.ta.pages.LoginPage;
-import by.krukouski.ta.pages.MainPage;
+import by.krukouski.ta.pages.PassTestPage;
 
 public class Steps {
 
@@ -29,6 +28,7 @@ public class Steps {
 	{
 		LoginPage loginPage = new LoginPage(driver);
 		loginPage.openPage();
+		logger.info("Page opened");
 		loginPage.login(username);
 	}
 	
@@ -38,26 +38,65 @@ public class Steps {
 		return (loginPage.getTitle().trim().toUpperCase().equals(title));
 		
 	}
-
-	/*public boolean isLoggedIn(String username)
-	{
-		LoginPage loginPage = new LoginPage(driver);
-		return (loginPage.getLoggedInUserName().trim().toLowerCase().equals(username));
-	}*/
-
-	public boolean createNewRepository(String repositoryName, String repositoryDescription)
-	{
-		MainPage mainPage = new MainPage(driver);
-		mainPage.clickOnCreateNewRepositoryButton();
-		CreateNewRepositoryPage createNewRepositoryPage = new CreateNewRepositoryPage(driver);
-		String expectedRepoName = createNewRepositoryPage.createNewRepository(repositoryName, repositoryDescription);
-		return expectedRepoName.equals(createNewRepositoryPage.getCurrentRepositoryName());
+	
+	public boolean chooseRightAnswers(){
+		
+		String answer1 = "32658339";
+		String[] answer2 = new String[]{"32658360", "32658358", "32658362"};
+		String answer3 = "32658394";
+		
+		PassTestPage testPage = new PassTestPage(driver);
+		
+		chooseAnswers(testPage, answer1, answer2, answer3);				
+		
+		return testPage.getSuccessResult();
+		
+	}
+	
+	private void chooseAnswers(PassTestPage testPage, String answer1, String[] answer2, String answer3){
+		
+		testPage.chooseFirstQuestion(answer1);
+		testPage.chooseSecondQuestion(answer2);
+		testPage.chooseThirdQuestion(answer3);
+		testPage.clickSubmit();
+		
 	}
 
-	public boolean currentRepositoryIsEmpty()
-	{
-		CreateNewRepositoryPage createNewRepositoryPage = new CreateNewRepositoryPage(driver);
-		return createNewRepositoryPage.isCurrentRepositoryEmpty();
+	public boolean chooseMiddleAnswers(){
+		
+		String answer1 = "32658339";
+		String[] answer2 = new String[]{"32658362", "32658358", "32658359"};
+		String answer3 = "32658394";
+		
+		PassTestPage testPage = new PassTestPage(driver);
+		
+		chooseAnswers(testPage, answer1, answer2, answer3);
+		
+		return testPage.getMiddleresult();
+		
 	}
+	
+	public boolean chooseNotSuccessAnswers(){
+		
+		String answer1 = "32658338";
+		String[] answer2 = new String[]{"32658359"};
+		String answer3 = "32658395";
+		
+		PassTestPage testPage = new PassTestPage(driver);
+		
+		chooseAnswers(testPage, answer1, answer2, answer3);
+		
+		return testPage.getNotSuccessResult();
+	}
+	
+	public boolean chooseNegativeAnswers(){
+		
+		PassTestPage testPage = new PassTestPage(driver);
+		
+		testPage.clickSubmit();
+		
+		return testPage.getErrorResult();
+	}
+	
 	
 }
