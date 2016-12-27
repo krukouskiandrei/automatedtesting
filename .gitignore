@@ -1,0 +1,22 @@
+# Intellij ignorance
+
+.idea/
+
+*.iml
+
+*.iws
+*.txt
+
+# Maven ingorance
+
+log/
+target/
+out/
+classes/
+*/logs/
+
+# Eclipse ignorance
+
+*.project
+*.classpath
+*.settings
