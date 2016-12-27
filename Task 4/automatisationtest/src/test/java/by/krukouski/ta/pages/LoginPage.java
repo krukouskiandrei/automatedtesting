@@ -44,8 +44,9 @@ public class LoginPage extends AbstractPage
 	}
 	
 	public String getTitle(){
-		logger.info(title.getText() + "@@@@@@@");
+		
 		return title.getText();
+	
 	}
 
 

@@ -1,7 +1,5 @@
 package by.krukouski.ta;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -12,9 +10,10 @@ import by.krukouski.ta.steps.Steps;
 public class TestmozAutomationTest {
 
 	private static Steps steps;
-	private final Logger logger = LogManager.getRootLogger();
 	private final String USERNAME = "Andrei";
 	private final String TITLE = "FIRST TEST";
+	private final String TESTNAME = "My Test";
+	private final String TESTPASSWORD = "mytest";
 	
 
 	@BeforeClass
@@ -24,13 +23,16 @@ public class TestmozAutomationTest {
 		steps.initBrowser();
 	}
 
-	
+	@Test
+	public void testBuildTest(){
+		steps.createTest(TESTNAME, TESTPASSWORD);
+		Assert.assertTrue(steps.isCreatedTest(TESTNAME));
+	}
 
 	@Test
 	public void oneCanLoginGithub()
 	{
 		steps.loginTestmoz(USERNAME);
-		logger.info(steps.isLoggedIn(TITLE) + "!)!)!");
 		Assert.assertTrue(steps.isLoggedIn(TITLE));
 		
 	}
@@ -57,6 +59,12 @@ public class TestmozAutomationTest {
 	public void passTestNotSuccess(){
 		steps.loginTestmoz(USERNAME);
 		Assert.assertTrue(steps.chooseNotSuccessAnswers());
+	}
+	
+	@Test
+	public void chooseTowAnswers(){
+		steps.loginTestmoz(USERNAME);
+		Assert.assertTrue(steps.chooseTwoAnswers());
 	}
 	
 	@AfterClass

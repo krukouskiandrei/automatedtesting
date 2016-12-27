@@ -78,6 +78,14 @@ public class PassTestPage extends AbstractPage{
 		
 	}
 	
+	public boolean tryToChooseTwoAnswers(String answerValue1, String answerValue2){
+		WebElement answer1 = question3.findElement(By.xpath("//input[@value='" + answerValue1 + "']"));
+		answer1.click();
+		WebElement answer2 = question3.findElement(By.xpath("//input[@value='" + answerValue2 + "']"));
+		answer2.click();
+		return answer1.isSelected() == false;
+	}
+	
 	public boolean getSuccessResult(){
 		return getTestResult().trim().toUpperCase().equals(SuccessResult);
 	}
