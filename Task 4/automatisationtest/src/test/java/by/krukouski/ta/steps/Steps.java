@@ -130,4 +130,39 @@ public class Steps {
 		
 	}
 	
+	
+	public void createQuestion(String question, String[] answers, int correctAnswer){
+		
+		BuildTestPage buildTestPage = new BuildTestPage(driver);
+		
+		buildTestPage.clickCreateQuestion();
+		buildTestPage.setQuestionInForm(question, answers, correctAnswer);
+		buildTestPage.clickSaveQuestion();
+		
+	}
+	
+	public boolean isCreatedQuestion(String question){
+		
+		BuildTestPage buildTestPage = new BuildTestPage(driver);
+		
+		return buildTestPage.checkCreatedQuestion(question); 
+		
+	}
+	
+	public void checkCorrectAnswers(){
+		
+		BuildTestPage buildTestPage = new BuildTestPage(driver);
+		
+		buildTestPage.clickReportsLink();
+		buildTestPage.clickAnswerKey();
+		
+	}
+	
+	public boolean isOpenedRightAnswersPage(){
+		
+		BuildTestPage buildTestPage = new BuildTestPage(driver);
+		
+		return buildTestPage.checkRightAnswerPage();
+		
+	}
 }
